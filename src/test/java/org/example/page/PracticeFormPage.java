@@ -150,7 +150,7 @@ public class PracticeFormPage {
     }
 
     public void uploadPicture(){
-        driver.findElement(uploadPicture).sendKeys("https://github.com/estepanyuk/SeleniumWebDriver/blob/2b84420414a6ecaf75e06261c5ed30fe9a9ee23a/img/04.png");
+        driver.findElement(uploadPicture).sendKeys(System.getProperty("user.dir") + "/img/04.png");
     }
 
 
