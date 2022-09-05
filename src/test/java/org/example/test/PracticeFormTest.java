@@ -1,82 +1,74 @@
 package org.example.test;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PracticeFormTest extends BaseTest {
 
     @Test
-    public void testPracticeForm() throws InterruptedException {
-        //Step 1
+    public void testPracticeForm() {
+        String firstName = "TestFirst";
+        String lastName = "TestLast";
+        String email = "test@test.com";
+        String female = "Female";
+        String phone = "1488467984";
+        String[] dateOfBirth = {"16", "Sep", "September", "1995"};
+        String subject = "Chemistry";
+        String hobby = "Sports";
+        String file = "04.png";
+        String currentAddress = "Test residential address";
+        String state = "Haryana";
+        String city = "Karnal";
+
         practiceFormPage.open();
-        Assertions.assertEquals(practiceFormPage.getCurrentUrl(), driver.getCurrentUrl());
+        softAssertions.assertThat(driver.getCurrentUrl()).as("Current url").isEqualTo(practiceFormPage.GetCurrentUrl());
 
-        //Step 2
-        practiceFormPage.PasteFirstName("TestFirst");
-        Assertions.assertEquals("TestFirst", practiceFormPage.getFirstName());
+        practiceFormPage.pasteFirstName(firstName);
+        softAssertions.assertThat(practiceFormPage.getFirstName()).as("First name field").isEqualTo(firstName);
 
-        //Step 3
-        practiceFormPage.PasteLastName("TestLast");
-        Assertions.assertEquals("TestLast", practiceFormPage.getLastName());
+        practiceFormPage.pasteLastName(lastName);
+        softAssertions.assertThat(practiceFormPage.getLastName()).as("Last name field").isEqualTo(lastName);
 
-        //Step 4
-        practiceFormPage.PasteUserEmail("test@test.com");
-        Assertions.assertEquals("test@test.com", practiceFormPage.getUserEmail());
+        practiceFormPage.pasteUserEmail(email);
+        softAssertions.assertThat(practiceFormPage.getUserEmail()).as("Email field").isEqualTo(email);
 
-        //Step 5
-        practiceFormPage.clickGenderRadio2();
+        practiceFormPage.clickGenderRadioFemale();
 
-        //Step 6
-        practiceFormPage.PasteUserNumber("1488467984");
-        Assertions.assertEquals("1488467984", practiceFormPage.getUserNumber());
+        practiceFormPage.pasteUserNumber(phone);
+        softAssertions.assertThat(practiceFormPage.getUserNumber()).as("Email field").isEqualTo(phone);
 
-        //Step 7
-        practiceFormPage.PasteDateOfBirthInput(6, "September", 1995);
-        Assertions.assertEquals("06 Sep 1995", practiceFormPage.getDateOfBirthInput());
+        practiceFormPage.pasteDateOfBirthInput(dateOfBirth[0], dateOfBirth[2], dateOfBirth[3]);
+        softAssertions.assertThat(practiceFormPage.getDateOfBirthInput()).as("Email field").isEqualTo(dateOfBirth[0] + " " + dateOfBirth[2] + " " + dateOfBirth[3]);
 
-        //Step 8
-        practiceFormPage.PasteSubjectsContainer("Chemistry");
-        Assertions.assertEquals("Chemistry", practiceFormPage.getSubjectsContainer());
+        practiceFormPage.pasteSubjectsContainer(subject);
+        softAssertions.assertThat(practiceFormPage.getSubjectsContainer()).as("Subjects field").isEqualTo(subject);
 
-        //Step 9
-        practiceFormPage.clickHobbiesCheckbox1();
+        practiceFormPage.clickHobbiesCheckboxSport();
 
-        //Step 10
-        practiceFormPage.uploadPicture();
+        practiceFormPage.uploadPicture(file);
 
-        //Step 11 адрес
-        practiceFormPage.PasteCurrentAddress("Test residential address");
-        Assertions.assertEquals("Test residential address", practiceFormPage.getCurrentAddress());
+        practiceFormPage.pasteCurrentAddress(currentAddress);
+        softAssertions.assertThat(currentAddress).as("Current address field").isEqualTo(practiceFormPage.getCurrentAddress());
 
-        //Step 12
-        practiceFormPage.chooseState("Haryana");
-        Assertions.assertEquals("Haryana", practiceFormPage.getState());
+        practiceFormPage.chooseState(state);
+        softAssertions.assertThat(practiceFormPage.getState()).as("State field").isEqualTo(state);
 
-        //Step 13
-        practiceFormPage.chooseCity("Karnal");
-        Assertions.assertEquals("Karnal", practiceFormPage.getCity());
+        practiceFormPage.chooseCity(city);
+        softAssertions.assertThat(practiceFormPage.getCity()).as("City field").isEqualTo(city);
 
-        //Step 14
         practiceFormPage.clickSubmit();
         practiceFormPage.waitFormVisible();
 
-        //Step 15
-        Assertions.assertEquals("TestFirst TestLast", practiceFormPage.getFormData(0));
-        Assertions.assertEquals("test@test.com", practiceFormPage.getFormData(1));
-        Assertions.assertEquals("Female", practiceFormPage.getFormData(2));
-        Assertions.assertEquals("1488467984", practiceFormPage.getFormData(3));
-        Assertions.assertEquals("06 September,1995", practiceFormPage.getFormData(4));
-        Assertions.assertEquals("Chemistry", practiceFormPage.getFormData(5));
-        Assertions.assertEquals("Sports", practiceFormPage.getFormData(6));
-        Assertions.assertEquals("04.png", practiceFormPage.getFormData(7));
-        Assertions.assertEquals("Test residential address", practiceFormPage.getFormData(8));
-        Assertions.assertEquals("Haryana Karnal", practiceFormPage.getFormData(9));
+        softAssertions.assertThat(practiceFormPage.getFormData(0)).as("First and Last names in table").isEqualTo(firstName + " " + lastName);
+        softAssertions.assertThat(practiceFormPage.getFormData(1)).as("Email in table").isEqualTo(email);
+        softAssertions.assertThat(practiceFormPage.getFormData(2)).as("Sex in table").isEqualTo(female);
+        softAssertions.assertThat(practiceFormPage.getFormData(3)).as("Phone in table").isEqualTo(phone);
+        softAssertions.assertThat(practiceFormPage.getFormData(4)).as("Date of birthday in table").isEqualTo(dateOfBirth[0] + " " + dateOfBirth[2] + "," + dateOfBirth[3]);
+        softAssertions.assertThat(practiceFormPage.getFormData(5)).as("Subject in table").isEqualTo(subject);
+        softAssertions.assertThat(practiceFormPage.getFormData(6)).as("Hobbies in table").isEqualTo(hobby);
+        softAssertions.assertThat(practiceFormPage.getFormData(7)).as("File in table").isEqualTo(file);
+        softAssertions.assertThat(practiceFormPage.getFormData(8)).as("Current address in table").isEqualTo(currentAddress);
+        softAssertions.assertThat(practiceFormPage.getFormData(9)).as("State and City in table").isEqualTo(state + " " + city);
 
-        //Step16
         practiceFormPage.closeLargeModal();
-
     }
 }

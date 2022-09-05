@@ -5,12 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.concurrent.TimeUnit;
-
-import static java.lang.Thread.sleep;
 
 public class PracticeFormPage {
 
@@ -20,8 +15,7 @@ public class PracticeFormPage {
 
     private final By userEmail = By.id("userEmail");
 
-    private final By genderRadio2 = By.xpath("//*[@id='gender-radio-2']");
-    private final By genderRadio2Label = By.xpath("//*[@for='gender-radio-2']");
+    private final By genderRadioFemaleLabel = By.xpath("//*[@for='gender-radio-2']");
 
     private final By userNumber = By.id("userNumber");
 
@@ -36,10 +30,7 @@ public class PracticeFormPage {
 
     private final By multiValueLabel = By.xpath("//div[@id='subjectsContainer']//div[contains(@class,'subjects-auto-complete__multi-value__label')]");
 
-
-    private final By hobbiesCheckbox1 = By.id("hobbies-checkbox-1");
-
-    private final By hobbiesCheckbox1Label = By.xpath("//*[@for='hobbies-checkbox-1']");
+    private final By hobbiesCheckboxSportLabel = By.xpath("//*[@for='hobbies-checkbox-1']");
 
     private final By uploadPicture = By.id("uploadPicture");
 
@@ -73,11 +64,11 @@ public class PracticeFormPage {
         driver.get(currentUrl);
     }
 
-    public String getCurrentUrl() {
+    public String GetCurrentUrl() {
         return currentUrl;
     }
 
-    public void PasteFirstName(String text) {
+    public void pasteFirstName(String text) {
         driver.findElement(firstName).clear();
         driver.findElement(firstName).sendKeys(text);
     }
@@ -86,7 +77,7 @@ public class PracticeFormPage {
         return driver.findElement(firstName).getAttribute("value");
     }
 
-    public void PasteLastName(String text) {
+    public void pasteLastName(String text) {
         driver.findElement(lastName).clear();
         driver.findElement(lastName).sendKeys(text);
     }
@@ -95,7 +86,7 @@ public class PracticeFormPage {
         return driver.findElement(lastName).getAttribute("value");
     }
 
-    public void PasteUserEmail(String text) {
+    public void pasteUserEmail(String text) {
         driver.findElement(userEmail).clear();
         driver.findElement(userEmail).sendKeys(text);
     }
@@ -104,11 +95,11 @@ public class PracticeFormPage {
         return driver.findElement(userEmail).getAttribute("value");
     }
 
-    public void clickGenderRadio2(){
-        driver.findElement(genderRadio2Label).click();
+    public void clickGenderRadioFemale(){
+        driver.findElement(genderRadioFemaleLabel).click();
     }
 
-    public void PasteUserNumber(String text) {
+    public void pasteUserNumber(String text) {
         driver.findElement(userNumber).clear();
         driver.findElement(userNumber).sendKeys(text);
     }
@@ -117,11 +108,11 @@ public class PracticeFormPage {
         return driver.findElement(userNumber).getAttribute("value");
     }
 
-    public void PasteDateOfBirthInput(int day, String month, int year) {
+    public void pasteDateOfBirthInput(String day, String month, String year) {
         driver.findElement(dateOfBirthInput).click();
 
         new Select(driver.findElement(datePickerMonth)).selectByVisibleText(month);
-        new Select(driver.findElement(datePickerYear)).selectByVisibleText(String.valueOf(year));
+        new Select(driver.findElement(datePickerYear)).selectByVisibleText(year);
 
         driver.findElements(By.xpath("//div[contains(@aria-label, '" + month + " " + day + "')]")).get(0).click();
     }
@@ -130,14 +121,10 @@ public class PracticeFormPage {
         return driver.findElement(dateOfBirthInput).getAttribute("value");
     }
 
-    public void PasteSubjectsContainer(String Chemistry) {
+    public void pasteSubjectsContainer(String subject) {
         driver.findElement(subjectsContainer).click();
-        driver.findElement(subjectsInput).sendKeys("Chemistry");
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        driver.findElement(subjectsInput).sendKeys(subject);
+        sleep(1000);
         driver.findElement(subjectsInput).sendKeys(Keys.ENTER);
     }
 
@@ -145,16 +132,16 @@ public class PracticeFormPage {
         return driver.findElements(multiValueLabel).get(0).getText();
     }
 
-    public void clickHobbiesCheckbox1() {
-        driver.findElement(hobbiesCheckbox1Label).click();
+    public void clickHobbiesCheckboxSport() {
+        driver.findElement(hobbiesCheckboxSportLabel).click();
     }
 
-    public void uploadPicture(){
-        driver.findElement(uploadPicture).sendKeys(System.getProperty("user.dir") + "/img/04.png");
+    public void uploadPicture(String file) {
+        driver.findElement(uploadPicture).sendKeys(System.getProperty("user.dir") + "/img/" + file);
     }
 
 
-    public void PasteCurrentAddress(String text) {
+    public void pasteCurrentAddress(String text) {
         driver.findElement(currentAddress).clear();
         driver.findElement(currentAddress).sendKeys(text);
     }
@@ -185,7 +172,7 @@ public class PracticeFormPage {
         driver.findElement(submit).click();
     }
 
-    public void waitFormVisible () {
+    public void waitFormVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(form));
     }
@@ -196,6 +183,14 @@ public class PracticeFormPage {
 
     public void closeLargeModal() {
         driver.findElement(closeLargeModal).click();
+    }
+
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
