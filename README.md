@@ -1,9 +1,8 @@
 Зависмости котрые используються в проекте:
-• selenium-java – Selenium WebDriver для Java
-• junit-jupiter – тестовый фреймворк Junit 5
-• webdrivermanager – библиотека для управления
-драйверами браузером WebDriver Manager
-• selenide – готовый тестовый фреймворк
+* selenium-java – Selenium WebDriver для Java
+* junit-jupiter – тестовый фреймворк Junit 5
+* webDriverManager – библиотека для управления драйверами браузером WebDriver Manager
+* selenide – готовый тестовый фреймворк
 
 ## Cтруктура проекта
 ```bash
